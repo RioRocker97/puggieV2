@@ -1,9 +1,15 @@
 const express = require('express');
+const path = require('path');
+
 const app = express()
 
 app.set('view engine', 'pug')
-app.get('/',function(req,res){
-    res.render('homepage')
-})
+app.set('views',path.join(__dirname,'/views'))
 
-app.listen('6969')
+var homeRoute = require('./routes/home.js')
+var adminRoute = require('./routes/admin.js')
+
+app.use('/',homeRoute);
+app.use('/admin',adminRoute);
+
+module.exports =app
